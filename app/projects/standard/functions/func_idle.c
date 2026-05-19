@@ -32,7 +32,7 @@ void func_idle(void)
 
     while (func_cb.sta == FUNC_IDLE) {
         func_idle_process();
-        func_idle_message(msg_dequeue());
+        // func_idle_message(msg_dequeue());
         func_idle_display();
     }
 

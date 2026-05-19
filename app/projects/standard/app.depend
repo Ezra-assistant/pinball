@@ -1143,7 +1143,7 @@
 
 1779071994 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\xcfg.h
 
-1779073820 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\config.h
+1779181315 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\config.h
 	"config_define.h"
 	"config_extra.h"
 
@@ -1218,7 +1218,7 @@
 
 1779071659 d:\desktop\练习1(制作)\代码\pinball\app\platform\libs\api_lfs.h
 
-1779095150 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func.h
+1779178367 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func.h
 	"func_idle.h"
 	"func_music.h"
 	"func_lowpwr.h"
@@ -1377,7 +1377,7 @@
 
 1779071660 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\port\port_sd.h
 
-1779099811 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\res.h
+1779153898 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\res.h
 
 1779071659 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\bsp\bsp_cm.c
 	"include.h"
@@ -1410,7 +1410,7 @@
 1779071659 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\bsp\bsp_lfs.c
 	"include.h"
 
-1779071659 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\bsp\bsp_music.c
+1779178770 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\bsp\bsp_music.c
 	"include.h"
 
 1779071659 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\bsp\bsp_param.c
@@ -1463,7 +1463,7 @@
 	"include.h"
 	"fft_proc.h"
 
-1779071659 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\modules\key\key_scan.c
+1779161722 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\modules\key\key_scan.c
 	"include.h"
 
 1779071659 source:d:\desktop\练习1(制作)\代码\pinball\app\platform\modules\key\matrix_key.c
@@ -1553,12 +1553,12 @@
 
 1779071659 d:\desktop\练习1(制作)\代码\pinball\app\platform\libs\api_spiflash_ex.h
 
-1779071660 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func_idle.c
+1779157167 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func_idle.c
 	"include.h"
 	"func.h"
 	"func_idle.h"
 
-1779071660 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func_lowpwr.c
+1779176819 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func_lowpwr.c
 	"include.h"
 	"func.h"
 
@@ -1620,7 +1620,7 @@
 1779071660 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\plugin\plugin.c
 	"include.h"
 
-1779099884 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\port\port_init.c
+1779182502 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\port\port_init.c
 	"include.h"
 
 1779071660 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\port\port_ir.c
@@ -1658,6 +1658,6 @@
 1779071659 d:\desktop\练习1(制作)\代码\pinball\app\platform\header\s_common.h
 	"sfr.h"
 
-1779103706 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func.c
+1779185871 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func.c
 	"include.h"
 

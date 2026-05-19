@@ -507,7 +507,7 @@ void power_on_check(void)
             if (!pwrkey_pressed_flag) {
                 // saradc_exit(adc_cb.channel);
                 memcpy(&__pdn_comm_vma, &__pdn_comm_lma, (u32)&__pdn_comm_size);//复用aram
-                sfunc_pwroff();
+                sfunc_pwroff(); // 标记
             }
         }
 #if MUL_PWRON_IO_EN

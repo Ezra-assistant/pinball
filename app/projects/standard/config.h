@@ -22,21 +22,21 @@
 #define MCLR_RESRT_MODE                 0                       //0-disable, 1-长按复位(任意IO), 2-短按复位(PB10)
 #define MCLR_10S_RST_IO                 IO_NONE                 //长按复位IO选择
 
-#define SOFT_POWER_ON_OFF               1                       //是否使用软开关机功能
+#define SOFT_POWER_ON_OFF               0                       //是否使用软开关机功能
 #define SYS_SLEEP_TIME                  0                       //自动休眠时间(time * 1秒)
 #define SYS_OFF_TIME                    0                       //自动关机时间(time * 30秒)
 #define POWER_DOWN_MODE                 PWR_L4M                 //PWR_DOWN模式
 
 #define POWER_ON_FALL_NUM               1                       //低电平唤醒IO个数(0-即不使用低电平唤醒)
-#define POWER_ON_FALL_IO                {IO_PB6}        //低电平唤醒IO(支持任意IO唤醒)
+#define POWER_ON_FALL_IO                {IO_PB7}        //低电平唤醒IO(支持任意IO唤醒)
 // #define POWER_ON_FALL_IO                {IO_PA1, IO_PB1}        //低电平唤醒IO(支持任意IO唤醒)
 #define POWER_ON_RISE_NUM               0                       //高电平唤醒IO个数(0-即不使用高电平唤醒)
 #define POWER_ON_RISE_IO                {IO_PA2, IO_PB2}        //高电平唤醒IO(支持任意IO唤醒)
-#define POWER_OFF_IO                    IO_NONE                 //关机IO设置(用于避免按键未松开就进行关机流程,实际关机接口func_pwroff,如不使用IO关机,则设置为IO_NONE)
+#define POWER_OFF_IO                    IO_NONE                  //关机IO设置(用于避免按键未松开就进行关机流程,实际关机接口func_pwroff,如不使用IO关机,则设置为IO_NONE)
 #define PB7_SHORT_PB8_EN                0                       //PB7和PB8是否合封，解决它俩无法IO唤醒的问题
 
 #define GUI_SELECT                      GUI_NO                  //GUI Display Select
-#define UART0_PRINTF_SEL                PRINTF_PB9              //选择UART打印信息输出IO，或关闭打印信息输出
+#define UART0_PRINTF_SEL                PRINTF_NONE              //选择UART打印信息输出IO，或关闭打印信息输出
 
 /*****************************************************************************
  * Module    : FLASH配置
@@ -245,7 +245,7 @@
 /*****************************************************************************
  * Module    : User按键配置 (可以同时选择多组按键)
  *****************************************************************************/
-#define USER_ADKEY                      1           //ADKEY的使用， 0为不使用
+#define USER_ADKEY                      0           //ADKEY的使用， 0为不使用
 #define USER_ADKEY2                     0           //ADKEY2的使用，0为不使用
 #define USER_IOKEY                      1           //IOKEY的使用， 0为不使用
 #define IOKEY_HIGH_TRIGGER              0           //IOKEY高电平触发，0：低电平触发， 1：高电平触发
@@ -263,6 +263,8 @@
 
 #define IS_PWRKEY_PRESS()			    0
 #define DOUBLE_KEY_TIME                 (1)                       //按键双击响应时间（单位50ms）
+// #define PWRON_PRESS_TIME                0                  //长按PWRKEY多长时间开机？
+// #define PWROFF_PRESS_TIME               0                  //长按PWRKEY多长时间关机？
 #define PWRON_PRESS_TIME                (500*xcfg_cb.pwron_press_time)                  //长按PWRKEY多长时间开机？
 #define PWROFF_PRESS_TIME               (3+3*xcfg_cb.pwroff_press_time)                 //长按PWRKEY多长时间关机？
 
@@ -596,7 +598,7 @@
 #define LANG_SELECT                     LANG_EN      //提示音语言选择
 #define WARNING_PAUSE_PLAY              0            //是否支持提示音暂停播放
 
-#define WARNING_POWER_ON                1
+#define WARNING_POWER_ON                0
 #define WARNING_POWER_OFF               0
 #define WARNING_FUNC_MUSIC              0
 

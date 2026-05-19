@@ -2171,6 +2171,11 @@ void pwroff_wk_source_config(pwroff_wk_t *wkcfg)
 AT(.text.lowpwr.pwroff)
 void pwroff_do(void)
 {
+
+    
+    
+
+
     #if(PWR_L1M == POWER_DOWN_MODE)
         pdn1();
     #elif(PWR_L2M == POWER_DOWN_MODE)

@@ -1197,6 +1197,10 @@ void wav_song_play(msc_layer_e layer_num, u32 addr, u32 len, u8 loop_cnt)
 void wav_song_play_end(msc_layer_e layer_num)
 {
     printf("wav_song_play_end, layer: %d\n", layer_num);
+
+    
+
+
 #if (WARNING_WAV_PLAY)
     if(MSC_LAYER1 == layer_num){
 #if ((MUISC_WAV_LAYER_EN & MSC_WAV_LAYER1) == (MSC_WAV_LAYER1))

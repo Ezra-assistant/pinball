@@ -395,11 +395,21 @@ void func_run(void)
 
 
 /* 0.数组、变量初始化 */
+#if 1
+u8 seg_display_flag = 0; // 数码管显示标志位
+
 u16 real_time_scores = 0;
-u16 max_scores = 9995;
+u16 max_scores = 0;
 
 u32 real_time_scores_reg = 0x3F3F3F3F;  // 默认显示 0000 要实时显示（需要extern给中断中用）
-u32 max_scores_reg = 0;
+u32 max_scores_reg = 0x3F3F3F3F;
+
+u8 filckering_flag = 0;  // 灯光闪烁 flag
+
+u8 pwroff_count_flag = 0; // 计时关机 标志位
+u8 pwroff_flag = 0;       // 是否关机 标志位
+
+u8 cycle_play_flag = 0; // 上电默认开启 cycle_play_flag
 
 u32 display_max_score_table[7] = {
     0x40760640, 0,
@@ -419,12 +429,12 @@ u32 seg_table[10] = {           // 0-9 数码管显示 reg
     0x7F,  // 8
     0x6F   // 9
 };
-
+#endif
 
 /* 0.IO 初始化 */
 void gpio_init(void) {
-/* LED 初始化 */
 #if 1
+    /* LED 初始化 */
     GPIOBFEN &= ~BIT(1);    // PB1 复用关闭 -> 作为 普通GPIO 使用
     GPIOBDE  |=  BIT(1);    // PB1 设置为 数字 IO
     GPIOBDIR &= ~BIT(1);    // PB1 方向设置为 输出
@@ -460,11 +470,11 @@ void gpio_init(void) {
     GPIOBDIR |=  BIT(2);
     GPIOBPU  |=  BIT(2);
 
-    /* KEY6 实时分数增加 */
-    // GPIOBFEN &= ~BIT(9);
-    // GPIOBDE  |=  BIT(9);
-    // GPIOBDIR |=  BIT(9);
-    // GPIOBPU  |=  BIT(9);
+    /* 叶子开关 实时分数增加 */
+    GPIOBFEN &= ~BIT(9);
+    GPIOBDE  |=  BIT(9);
+    GPIOBDIR |=  BIT(9);
+    GPIOBPU  |=  BIT(9);
 #endif
 
 /* 数码管初始化 */
@@ -572,46 +582,144 @@ u32 num_to_digit(u16 num) {
     return display_reg;
 }
 
+// 0.2 灯光闪三下
+void lamp_flickering_3(void) {
+    GPIOB |= BIT(1);
+    delay_ms(400);
+    GPIOB &= ~BIT(1);
+    delay_ms(400);
+    GPIOB |= BIT(1);
+    delay_ms(400);
+    GPIOB &= ~BIT(1);
+    delay_ms(400);
+    GPIOB |= BIT(1);
+    delay_ms(400);
+    GPIOB &= ~BIT(1);
+    delay_ms(400);
+}
+
+/* 主循环有一个灯光（这边控制 灯光闪烁标志位）*/
+// 0.3 灯光 开始 闪烁
+void lamp_flickering_start(void) {
+    filckering_flag = 1;
+}
+
+// 0.4 灯光 关闭 闪烁
+void lamp_flickering_stop(void) {
+    filckering_flag = 0;
+}
+
+// 0.5 灯光闪烁
+void lamp_filckering(void) {
+
+    // 如果太快就用累加的方式
+    if (filckering_flag) {
+        static u8 reverse_count_flag = 0;
+
+        reverse_count_flag++;
+
+        if (reverse_count_flag == 100) {
+            GPIOB |= BIT(1);
+        }
+        else if (reverse_count_flag == 200) {
+            GPIOB &= ~BIT(1);
+            reverse_count_flag = 0;
+        }
+    }
+    else {
+        GPIOB &= ~BIT(1);
+    }
+}
+
+// 0.6 设备初始化
+void device_init(void) {
+    lamp_flickering_3();      // 灯闪三下
+    sfunc_pwroff();         // 关机
+    cycle_play_flag = 1;    // BGM开
+    seg_display_flag = 1;   // 数码管开
+}
 
 /* 1.自动关机处理函数 */
 void auto_shutdown_process(void) {
-    static u8 pwroff_flag = 0;
-
-    /* 检测是否空闲 */
-    // if(!idle) {
-    //     // pwroff_flag = 0;
-    // }
 
     u16 msg = msg_dequeue();
+
+    /* 检测是否空闲 */
+    if((msg == 0x0A00) || (msg == 0x0B00) || (msg == 0x0C00) || (msg == 0x0D00) || (msg == 0x0D11) || (msg == 0x0E00) || (msg == 0x0F00)) {
+        pwroff_count_flag = 0;
+        msg_enqueue(msg);
+        return;
+    }
+
     if (msg == MSG_SYS_1S) {
-        pwroff_flag++;
+        pwroff_count_flag++;
         /* 几秒关闭 */
-        if (pwroff_flag == 5) {
-        // if (pwroff_flag == 180) {
-            pwroff_flag = 0;
-            // sfunc_pwroff();
+        if (pwroff_count_flag >= 180) {
+            pwroff_count_flag = 0;
+            // 1.播放提示音（叠加）
+            sfunc_pwroff();
+        }
+        return;
+    }
+
+    msg_enqueue(msg);
+}
+
+/* 2.开关机 按键处理函数 msg 0x0A00 */
+void power_process(void) {
+
+    static u8 off_music_play = 2;
+
+    u16 msg = msg_dequeue();
+    if (msg == 0x0A00) {
+        printf("key1 press!\n");
+        // 1.播放提示音关机（叠加）
+        pwroff_flag = !pwroff_flag;
+
+        if (!pwroff_flag) {
+            /* 休眠前处理 */
+            music_layer_sta_set(MSC_LAYER1, LAYER_PAUSE); // 暂停音乐，本层原有的音乐
+            music_layer_sta_set(MSC_LAYER1, LAYER_STOP);  // 删除音乐，本层原有的音乐
+            wav_song_play(MSC_LAYER1, RES_BUF_EN_OFF_WAV, RES_LEN_EN_OFF_WAV, 1);
+
+            off_music_play = 1;
+
+            // 灯光熄灭
+            lamp_flickering_stop();
         }
     }
     else {
         msg_enqueue(msg);
     }
 
-    // test TEMP
-    if (pwroff_flag % 2) {
-        GPIOB &= ~BIT(1);
-    } else {
-        GPIOB |= BIT(1);
+    if (off_music_play == 1) {
+        if (music_layer_sta_get(MSC_LAYER1) != LAYER_PLAYING) {
+            off_music_play = 0;
+        }
     }
-}
+    else if (off_music_play == 0){
+        sfunc_pwroff();
+        off_music_play = 2;
 
-/* 2.开关机 按键处理函数 msg 0x0A00 */
-void power_process(void) {
-    u16 msg = msg_dequeue();
-    if (msg == 0x0A00) {
-        printf("key1 press!\n");
-    }
-    else {
-        msg_enqueue(msg);
+        /* 唤醒后处理 */
+        // 2.播放提示音开机（叠加）
+        music_layer_sta_set(MSC_LAYER1, LAYER_PAUSE); // 暂停音乐，本层原有的音乐
+        music_layer_sta_set(MSC_LAYER1, LAYER_STOP); // 删除音乐，本层原有的音乐
+        wav_song_play(MSC_LAYER1, RES_BUF_EN_CLR_WAV, RES_LEN_EN_CLR_WAV, 1);
+
+        // // 3.数码管（最高分显示规则）
+        // // 3.1 数码管（按照最高分显示规则播放）准备数据
+        // // 数组，往里面放好 -H1-，至于最高分，在播放的时候实时获取后赋值到数组里面，到时候数码管就按照这个数组进行显示
+        display_max_score_table[1] = max_scores_reg;
+        display_max_score_table[3] = max_scores_reg;
+        display_max_score_table[5] = max_scores_reg;
+        display_max_score_table[6] = real_time_scores_reg;
+
+        // 3.2 0x0D11 表示数据准备好，数码管可以开始显示最高分规则
+        msg_enqueue(0x0D11);
+
+        // 4.灯光闪3下
+        lamp_flickering_3();
     }
 
 }
@@ -621,8 +729,26 @@ void clear_score_process(void) {
     u16 msg = msg_dequeue();
     if (msg == 0x0B00) {
         printf("key2 press!\n");
-        real_time_scores = 1315;
-        real_time_scores_reg = 0x3F3F3F3F;
+
+        // 1.播放提示音（叠加）
+        music_layer_sta_set(MSC_LAYER1, LAYER_STOP); // 删除音乐，本层原有的音乐
+        wav_song_play(MSC_LAYER1, RES_BUF_EN_CLR_WAV, RES_LEN_EN_CLR_WAV, 1);
+
+        // 2.清除实时分数
+        real_time_scores = 0;
+        real_time_scores_reg = num_to_digit(real_time_scores);
+
+        // 3.1 数码管（按照最高分显示规则播放）准备数据
+        display_max_score_table[1] = max_scores_reg;
+        display_max_score_table[3] = max_scores_reg;
+        display_max_score_table[5] = max_scores_reg;
+        display_max_score_table[6] = real_time_scores_reg;
+
+        // 3.2 0x0D11 表示数据准备好，数码管可以开始显示最高分规则
+        msg_enqueue(0x0D11);
+
+        // 4.灯光熄灭（打开和关闭 灯光闪烁API）
+        lamp_flickering_stop();
     }
     else {
         msg_enqueue(msg);
@@ -632,7 +758,7 @@ void clear_score_process(void) {
 /* 4.BGM循环 按键处理函数 msg 0x0C00 */
 #if 1
 // 全局变量
-u8 cycle_play_flag = 1; // 上电默认开启 cycle_play_flag
+
 
 // 声明
 void cycle_play(void);
@@ -660,7 +786,6 @@ void cycle_play(void) {
         return;
     }
 
-    // vmp3_song_play(RES_BUF_EN_BGM_VMP3, RES_LEN_EN_BGM_VMP3, 0);
     mp3_song_play(RES_BUF_EN_BGM_MP3, RES_LEN_EN_BGM_MP3, 0);
 }
 
@@ -672,11 +797,12 @@ void show_high_score_process(void) {
     u16 msg = msg_dequeue();
     if (msg == 0x0D00) {
         printf("key4 press!\n");
+
         // 1.播放提示音（叠加）
-        // music_layer_sta_set(MSC_LAYER1, LAYER_STOP); // 删除音乐，本层原有的音乐
+        music_layer_sta_set(MSC_LAYER1, LAYER_STOP); // 删除音乐，本层原有的音乐
         wav_song_play(MSC_LAYER1, RES_BUF_EN_HIGH_WAV, RES_LEN_EN_HIGH_WAV, 1);
 
-        // 2.数码管（按照最高分显示规则播放）
+        // 2.1 数码管（按照最高分显示规则播放）准备数据
         // 数组，往里面放好 -H1-，至于最高分，在播放的时候实时获取后赋值到数组里面，到时候数码管就按照这个数组进行显示
         max_scores_reg = num_to_digit(max_scores);
         real_time_scores_reg = num_to_digit(real_time_scores);
@@ -686,10 +812,12 @@ void show_high_score_process(void) {
         display_max_score_table[5] = max_scores_reg;
         display_max_score_table[6] = real_time_scores_reg;
 
-        // 3.灯光熄灭（打开和关闭 灯光闪烁API）
-
-        // 4.0x0D11 表示数据准备好，数码管可以开始显示最高分规则
+        // 2.2 0x0D11 表示数据准备好，数码管可以开始显示最高分规则
         msg_enqueue(0x0D11);
+
+
+        // 3.灯光熄灭（打开和关闭 灯光闪烁API）
+        lamp_flickering_stop();
     }
     else {
         msg_enqueue(msg);
@@ -701,7 +829,34 @@ void clear_high_score_process(void) {
     u16 msg = msg_dequeue();
     if (msg == 0x0E00) {
         printf("key5 press!\n");
+
+/* 原 KEY5 的功能 */
+#if 1
+        // 1.播放提示音（叠加）
+        music_layer_sta_set(MSC_LAYER1, LAYER_STOP); // 删除音乐，本层原有的音乐
+        wav_song_play(MSC_LAYER1, RES_BUF_EN_CLR_WAV, RES_LEN_EN_CLR_WAV, 1);
+
+        // 2.清除实时分数
+        real_time_scores = 0;
+        real_time_scores_reg = num_to_digit(real_time_scores);
+
+        // 3.清除最高分
         max_scores = 0;
+        max_scores_reg = num_to_digit(max_scores);
+
+        // 4.1 数码管（按照最高分显示规则播放）准备数据
+        display_max_score_table[1] = max_scores_reg;
+        display_max_score_table[3] = max_scores_reg;
+        display_max_score_table[5] = max_scores_reg;
+        display_max_score_table[6] = real_time_scores_reg;
+
+        // 4.2 0x0D11 表示数据准备好，数码管可以开始显示最高分规则
+        msg_enqueue(0x0D11);
+
+
+        // 5.灯光熄灭（打开和关闭 灯光闪烁API）
+        lamp_flickering_stop();
+#endif
     }
     else {
         msg_enqueue(msg);
@@ -709,41 +864,113 @@ void clear_high_score_process(void) {
 }
 
 /* 7.叶子 按键处理函数 msg 0x0F00 */
+#if 1
 u32 last_times = 0;
+// 声明函数
+void leaf_play(void);
 
 void leaf_process(void) {
+    static u8 leaf_music_play = 2;
+
     u16 msg = msg_dequeue();
     if (msg == 0x0F00) {
+        // 如果在300ms 后触发
         if (tick_check_expire(last_times, 300)) {
+            // 1.实时分数加 5
             printf("leaf key press!\n");
+
             last_times = tick_get();
+
+            real_time_scores += 5;
+            if (real_time_scores > 9995) {
+                real_time_scores = 0;
+            }
+
+            if (real_time_scores > max_scores) {
+                max_scores = real_time_scores;
+            }
+
+            real_time_scores_reg = num_to_digit(real_time_scores);
+
+            // 3.1 灯光有声赫兹闪（开始）
+            lamp_flickering_start();
+
+            // 4.每满100分，播放欢呼声
+            // if (100 就播放 欢呼，如果不是 100 就正常播放)
+            if (real_time_scores % 100 == 0) {
+                wav_song_play(MSC_LAYER1, RES_BUF_EN_WIN_WAV, RES_LEN_EN_WIN_WAV, 1);
+            }
+            else {
+                // 2.播放 叶子 提示音
+                leaf_play();
+            }
+            leaf_music_play = 1;
         }
         else {
-            // 正式执行的功能
             printf("re-trigger at the short times!\n");
         }
     }
     else {
         msg_enqueue(msg);
     }
+
+    // 3.1 灯光有声赫兹闪（结束）
+    if (leaf_music_play == 1) {
+        if (music_layer_sta_get(MSC_LAYER1) != LAYER_PLAYING) {
+            leaf_music_play = 0;
+        }
+    }
+    else if (leaf_music_play == 0) {
+        lamp_flickering_stop();
+    }
 }
 
+void leaf_play(void) {
+    static u8 current_audio = 1;
+
+    switch(current_audio) {
+        case 1:
+            wav_song_play(MSC_LAYER1, RES_BUF_EN_SFX1_WAV, RES_LEN_EN_SFX1_WAV, 1);
+            break;
+        case 2:
+            wav_song_play(MSC_LAYER1, RES_BUF_EN_SFX2_WAV, RES_LEN_EN_SFX2_WAV, 1);
+            break;
+        case 3:
+            wav_song_play(MSC_LAYER1, RES_BUF_EN_SFX3_WAV, RES_LEN_EN_SFX3_WAV, 1);
+            break;
+        case 4:
+            wav_song_play(MSC_LAYER1, RES_BUF_EN_SFX4_WAV, RES_LEN_EN_SFX4_WAV, 1);
+            break;
+        case 5:
+            wav_song_play(MSC_LAYER1, RES_BUF_EN_SFX5_WAV, RES_LEN_EN_SFX5_WAV, 1);
+            break;
+    }
+
+    // 索引递增，到5后回到1
+    current_audio++;
+    if(current_audio > 5) {
+        current_audio = 1;
+    }
+
+}
+
+#endif
 
 void user_main(void) {
 
     /* 初始化 */
-    /* 1.IO 初始化 */
+    /* 0.1 IO 初始化 */
     gpio_init();
 
-    /* 2.数组初始化 */
+    /* 0.2 设备初始化：灯闪、关机、BGM开、数码管开 */
+    device_init();
 
-    /* 3.设备初始化：灯闪、关机、BGM_play_flag = 1 */
-
+    /* 本项目所有处理函数 */
     while (1) {
         func_process(); // 系统自带的process
 
-        /* 1.自动关机处理函数 */ // 后面问问
-        // auto_shutdown_process();
+        /* 1.自动关机处理函数 */
+        auto_shutdown_process();
 
         /* 2.开关机 按键处理函数 msg 0x0A00 */
         power_process();
@@ -761,9 +988,10 @@ void user_main(void) {
         clear_high_score_process();
 
         /* 7.叶子 按键处理函数 msg 0x00F0 */
-        // 每达到100分 播放欢呼音频 处理函数
-        // 检测 实时分数 变量
-        // leaf_process();
+        leaf_process();
+
+        /* 灯光闪烁 */
+        lamp_filckering();
     }
 }
 

@@ -49,8 +49,6 @@ u16 key_msgs[KEY_SUM] = {
 
 #endif
 
-
-
 /* 1.按键扫描 函数 */
 #if 1
 /* 函数声明 */
@@ -64,11 +62,11 @@ void keys_scan(void) {
     current_key_state[2] = (GPIOB & BIT(5)) == 0; // KEY3 播放BGM
     current_key_state[3] = (GPIOB & BIT(4)) == 0; // KEY4 显示数码管最高分
     current_key_state[4] = (GPIOB & BIT(2)) == 0; // KEY5 清空最高分
-    // current_key_state[5] = (GPIOB & BIT(9)) == 0; // LEAF_KEY 增加分数
+    current_key_state[5] = (GPIOB & BIT(9)) == 0; // LEAF_KEY 增加分数
 
 
     // 循环检测 KEY1~KEY5
-    for(int i = 0; i < (KEY_SUM - 1); i++) {
+    for(int i = 0; i < (KEY_SUM); i++) {
         // 下降沿检测（按键按下）
         if (current_key_state[i] == 1 && last_key_state[i] == 0) {
             key_press_count[i] = 0;
@@ -108,6 +106,10 @@ void keys_scan(void) {
 
 AT(.com_text.key)
 void leaf_key_scan(void) {
+    // if (current_key_state[5] == 1) {
+    //     msg_enqueue(key_msgs[5]);
+    // }
+
     if (current_key_state[5] == 1 && last_key_state[5] == 0) {
         key_press_count[5] = 0;
         key_processed[5] = 0;
@@ -214,9 +216,6 @@ void seg7_refresh(void) {
             // 已经间隔了600ms才显示下一个
             if (max_score_display_count_interval >= MAX_SCORE_DISPLAY_INTERVAL) {
                 display_register = display_max_score_table[max_score_display_count_flag++];
-
-                printf(str_trigger, max_score_display_count_flag);
-
                 max_score_display_count_interval = 0;
             }
         }
@@ -410,7 +409,10 @@ void usr_tmr1ms_isr(void)
 {
 
     /* 2.数码管刷新 */
-    seg7_refresh();
+    if (seg_display_flag) {
+        seg7_refresh();
+    }
+    
 
 
 
