@@ -351,7 +351,9 @@ void usr_tmr5ms_isr(void)
 /* 自定义的代码 */
 #if 1
     /* 1.按键检测（开关机、清除实时分数、循环播放BGM、显示最高分规则、清空最高分、叶子触发） */
-    keys_scan();
+    if (key_scan_flag) {
+        keys_scan();
+    }
 
     /* 2.数码管刷新 */
     // seg7_refresh();

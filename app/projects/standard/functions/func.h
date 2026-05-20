@@ -86,6 +86,7 @@ void func_exspiflash_music(void);
 extern u32 display_max_score_table[7];
 extern u32 real_time_scores_reg;
 extern u8 seg_display_flag;
+extern u8 key_scan_flag;
 extern u8 pwroff_flag;
 
 

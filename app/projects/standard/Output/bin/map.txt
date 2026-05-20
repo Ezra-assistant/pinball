@@ -184,7 +184,7 @@ Discarded input sections
                 0x0000000000000000       0xa4 Output\obj\platform\bsp\bsp_dac.o
  .rodata.soft_fade_out_wait.str1.4
                 0x0000000000000000       0x2f Output\obj\platform\bsp\bsp_dac.o
- .sbss.fadeStepTime.6163
+ .sbss.fadeStepTime.6164
                 0x0000000000000000        0x4 Output\obj\platform\bsp\bsp_dac.o
  .text          0x0000000000000000        0x0 Output\obj\platform\bsp\bsp_ext_dump.o
  .data          0x0000000000000000        0x0 Output\obj\platform\bsp\bsp_ext_dump.o
@@ -212,7 +212,7 @@ Discarded input sections
  .rodata.dumpbuf.str1.4
                 0x0000000000000000       0x99 Output\obj\platform\bsp\bsp_ext_dump.o
  .sdata         0x0000000000000000        0x8 Output\obj\platform\bsp\bsp_ext_dump.o
- .sdata.buf_first_kick.6189
+ .sdata.buf_first_kick.6190
                 0x0000000000000000        0x2 Output\obj\platform\bsp\bsp_ext_dump.o
  .comment       0x0000000000000000       0x12 Output\obj\platform\bsp\bsp_ext_dump.o
  COMMON         0x0000000000000000        0x8 Output\obj\platform\bsp\bsp_ext_dump.o
@@ -301,11 +301,11 @@ Discarded input sections
                 0x0000000000000000       0x68 Output\obj\platform\bsp\bsp_saradc.o
  .text.e_saradc_proc
                 0x0000000000000000       0xa8 Output\obj\platform\bsp\bsp_saradc.o
- .rodata.__func__.6136
+ .rodata.__func__.6137
                 0x0000000000000000        0xe Output\obj\platform\bsp\bsp_saradc.o
  .rodata.e_saradc_proc.str1.4
                 0x0000000000000000       0x2b Output\obj\platform\bsp\bsp_saradc.o
- .sbss.adc_ch.6139
+ .sbss.adc_ch.6140
                 0x0000000000000000        0x2 Output\obj\platform\bsp\bsp_saradc.o
  .sbss.sfr1     0x0000000000000000        0x4 Output\obj\platform\bsp\bsp_saradc.o
  .comment       0x0000000000000000       0x12 Output\obj\platform\bsp\bsp_saradc.o
@@ -530,9 +530,11 @@ Discarded input sections
  .text.func.msg
                 0x0000000000000000       0xe6 Output\obj\projects\standard\functions\func.o
  .text.func     0x0000000000000000       0xee Output\obj\projects\standard\functions\func.o
- .text.lamp_flickering_start
+ .text.seg_display_start
                 0x0000000000000000        0xc Output\obj\projects\standard\functions\func.o
- .text.lamp_flickering_stop
+ .text.key_scan_start
+                0x0000000000000000        0xc Output\obj\projects\standard\functions\func.o
+ .text.key_scan_stop
                 0x0000000000000000        0xa Output\obj\projects\standard\functions\func.o
  .text          0x0000000000000000        0x0 Output\obj\projects\standard\functions\func_clock.o
  .data          0x0000000000000000        0x0 Output\obj\projects\standard\functions\func_clock.o
@@ -1659,118 +1661,119 @@ LOAD Output\obj\projects\standard\s_start.o
                 0x000000000001128a                seg_display
                 0x00000000000112a8                seg7_refresh
  .com_text.timer
-                0x000000000001135c       0xa4 Output\obj\projects\standard\port\port_init.o
+                0x000000000001135c       0xac Output\obj\projects\standard\port\port_init.o
                 0x000000000001135c                usr_tmr5ms_isr
-                0x00000000000113b8                usr_tmr1ms_isr
+                0x00000000000113c0                usr_tmr1ms_isr
+ *fill*         0x0000000000011408        0x0 
  .com_text.rodata
-                0x0000000000011400       0x40 Output\obj\projects\standard\port\port_init.o
-                0x0000000000011400                seg_pin
+                0x0000000000011408       0x40 Output\obj\projects\standard\port\port_init.o
+                0x0000000000011408                seg_pin
  .com_text.port.key
-                0x0000000000011440       0xb8 Output\obj\projects\standard\port\port_key.o
-                0x0000000000011440                iokey_cfg_port_pressed
-                0x000000000001145a                iokey_cfg_port_out_low
-                0x000000000001147c                iokey_cfg_midkey_pressed
-                0x00000000000114a6                get_iokey
+                0x0000000000011448       0xb8 Output\obj\projects\standard\port\port_key.o
+                0x0000000000011448                iokey_cfg_port_pressed
+                0x0000000000011462                iokey_cfg_port_out_low
+                0x0000000000011484                iokey_cfg_midkey_pressed
+                0x00000000000114ae                get_iokey
  .com_text.dac.vdet
-                0x00000000000114f8       0x9c ..\..\platform\libs\libplatform.a(dac.o)
-                0x00000000000114f8                dac_classd_dec_proc
- .com_text.dac  0x0000000000011594       0x9a ..\..\platform\libs\libplatform.a(gpdma.o)
-                0x0000000000011596                dac_gpdma_kick
+                0x0000000000011500       0x9c ..\..\platform\libs\libplatform.a(dac.o)
+                0x0000000000011500                dac_classd_dec_proc
+ .com_text.dac  0x000000000001159c       0x9a ..\..\platform\libs\libplatform.a(gpdma.o)
+                0x000000000001159e                dac_gpdma_kick
  .com_text.dac.dnr
-                0x000000000001162e       0x24 ..\..\platform\libs\libplatform.a(gpdma.o)
-                0x000000000001162e                dac_gpdma_reset
+                0x0000000000011636       0x24 ..\..\platform\libs\libplatform.a(gpdma.o)
+                0x0000000000011636                dac_gpdma_reset
  .com_text.spiflash
-                0x0000000000011652       0x26 ..\..\platform\libs\libplatform.a(os_flash.o)
-                0x0000000000011652                os_spiflash_read
-                0x0000000000011670                os_spiflash_program
-                0x0000000000011674                os_spiflash_erase
+                0x000000000001165a       0x26 ..\..\platform\libs\libplatform.a(os_flash.o)
+                0x000000000001165a                os_spiflash_read
+                0x0000000000011678                os_spiflash_program
+                0x000000000001167c                os_spiflash_erase
  .com_text.delay
-                0x0000000000011678       0x5c ..\..\platform\libs\libplatform.a(main.o)
-                0x0000000000011678                delay_5ms
-                0x000000000001169c                delay_ms
-                0x00000000000116bc                delay_us
+                0x0000000000011680       0x5c ..\..\platform\libs\libplatform.a(main.o)
+                0x0000000000011680                delay_5ms
+                0x00000000000116a4                delay_ms
+                0x00000000000116c4                delay_us
  .com_text.bsp.key
-                0x00000000000116d4      0x150 ..\..\platform\libs\libplatform.a(key.o)
-                0x00000000000116d4                key_process
+                0x00000000000116dc      0x150 ..\..\platform\libs\libplatform.a(key.o)
+                0x00000000000116dc                key_process
  .com_text.saradc
-                0x0000000000011824       0x2c ..\..\platform\libs\libplatform.a(saradc.o)
-                0x0000000000011824                saradc_kick_start
-                0x0000000000011846                is_saradc_convert_finish
- .com_text.irq  0x0000000000011850       0x54 ..\..\platform\libs\libplatform.a(interrupt.o)
-                0x0000000000011850                os_soft_isr
-                0x0000000000011860                timer0_isr
-                0x000000000001188a                tick_get
-                0x0000000000011892                tick_check_expire
- .com_text.sys  0x00000000000118a4        0x6 ..\..\platform\libs\libplatform.a(s_sys.o)
-                0x00000000000118a4                s_clip16
+                0x000000000001182c       0x2c ..\..\platform\libs\libplatform.a(saradc.o)
+                0x000000000001182c                saradc_kick_start
+                0x000000000001184e                is_saradc_convert_finish
+ .com_text.irq  0x0000000000011858       0x54 ..\..\platform\libs\libplatform.a(interrupt.o)
+                0x0000000000011858                os_soft_isr
+                0x0000000000011868                timer0_isr
+                0x0000000000011892                tick_get
+                0x000000000001189a                tick_check_expire
+ .com_text.sys  0x00000000000118ac        0x6 ..\..\platform\libs\libplatform.a(s_sys.o)
+                0x00000000000118ac                s_clip16
  .com_text.lsbc.proc
-                0x00000000000118aa       0x16 ..\..\platform\libs\libcodecs.a(lsbc.o)
-                0x00000000000118aa                lsbc_block_align_get
- .com_text.mav  0x00000000000118c0       0x24 ..\..\platform\libs\libcodecs.a(s_voice_changer.o)
-                0x00000000000118c0                vcf_corr_process_s
+                0x00000000000118b2       0x16 ..\..\platform\libs\libcodecs.a(lsbc.o)
+                0x00000000000118b2                lsbc_block_align_get
+ .com_text.mav  0x00000000000118c8       0x24 ..\..\platform\libs\libcodecs.a(s_voice_changer.o)
+                0x00000000000118c8                vcf_corr_process_s
  *(.com_rodata*)
  .com_rodata.key.table
-                0x00000000000118e4        0x8 Output\obj\platform\modules\key\key_scan.o
-                0x00000000000118e4                key_shake_table
+                0x00000000000118ec        0x8 Output\obj\platform\modules\key\key_scan.o
+                0x00000000000118ec                key_shake_table
  .com_rodata.multi.key
-                0x00000000000118ec        0x8 ..\..\platform\libs\libplatform.a(key.o)
-                0x00000000000118ec                key_multi_tbl
+                0x00000000000118f4        0x8 ..\..\platform\libs\libplatform.a(key.o)
+                0x00000000000118f4                key_multi_tbl
  *(.srodata*)
  *debug.o(.rodata*)
  *(.data*)
  .data.wav_layer_tbl
-                0x00000000000118f4        0xc Output\obj\platform\bsp\bsp_music.o
-                0x00000000000118f4                wav_layer_tbl
+                0x00000000000118fc        0xc Output\obj\platform\bsp\bsp_music.o
+                0x00000000000118fc                wav_layer_tbl
  .data.display_max_score_table
-                0x0000000000011900       0x1c Output\obj\projects\standard\functions\func.o
-                0x0000000000011900                display_max_score_table
+                0x0000000000011908       0x1c Output\obj\projects\standard\functions\func.o
+                0x0000000000011908                display_max_score_table
  .data.seg_table
-                0x000000000001191c       0x28 Output\obj\projects\standard\functions\func.o
-                0x000000000001191c                seg_table
+                0x0000000000011924       0x28 Output\obj\projects\standard\functions\func.o
+                0x0000000000011924                seg_table
  .data.key_msgs
-                0x0000000000011944        0xc Output\obj\projects\standard\port\port_init.o
-                0x0000000000011944                key_msgs
+                0x000000000001194c        0xc Output\obj\projects\standard\port\port_init.o
+                0x000000000001194c                key_msgs
  *(.sdata*)
  .sdata.gpdma_buf_size
-                0x0000000000011950        0x2 Output\obj\platform\bsp\bsp_dac.o
-                0x0000000000011950                gpdma_buf_size
+                0x0000000000011958        0x2 Output\obj\platform\bsp\bsp_dac.o
+                0x0000000000011958                gpdma_buf_size
  .sdata.spi_mp3_encrypt_key
-                0x0000000000011952        0x2 Output\obj\platform\bsp\bsp_music.o
-                0x0000000000011952                spi_mp3_encrypt_key
+                0x000000000001195a        0x2 Output\obj\platform\bsp\bsp_music.o
+                0x000000000001195a                spi_mp3_encrypt_key
  .sdata.wav_pitchup_val
-                0x0000000000011954        0x1 Output\obj\platform\bsp\bsp_music.o
-                0x0000000000011954                wav_pitchup_val
+                0x000000000001195c        0x1 Output\obj\platform\bsp\bsp_music.o
+                0x000000000001195c                wav_pitchup_val
  .sdata.wav_speedup_val
-                0x0000000000011955        0x1 Output\obj\platform\bsp\bsp_music.o
-                0x0000000000011955                wav_speedup_val
+                0x000000000001195d        0x1 Output\obj\platform\bsp\bsp_music.o
+                0x000000000001195d                wav_speedup_val
  .sdata.cfg_flash_dual_read
-                0x0000000000011956        0x1 Output\obj\platform\bsp\bsp_sys.o
-                0x0000000000011956                cfg_flash_dual_read
+                0x000000000001195e        0x1 Output\obj\platform\bsp\bsp_sys.o
+                0x000000000001195e                cfg_flash_dual_read
  .sdata.cfg_spiflash_speed_up_en
-                0x0000000000011957        0x1 Output\obj\platform\bsp\bsp_sys.o
-                0x0000000000011957                cfg_spiflash_speed_up_en
+                0x000000000001195f        0x1 Output\obj\platform\bsp\bsp_sys.o
+                0x000000000001195f                cfg_spiflash_speed_up_en
  .sdata.cfg_uart0_baud_update_en
-                0x0000000000011958        0x1 Output\obj\platform\bsp\bsp_sys.o
-                0x0000000000011958                cfg_uart0_baud_update_en
- .sdata.current_audio.6263
-                0x0000000000011959        0x1 Output\obj\projects\standard\functions\func.o
- .sdata.leaf_music_play.6258
-                0x000000000001195a        0x1 Output\obj\projects\standard\functions\func.o
- *fill*         0x000000000001195b        0x1 
+                0x0000000000011960        0x1 Output\obj\platform\bsp\bsp_sys.o
+                0x0000000000011960                cfg_uart0_baud_update_en
+ .sdata.current_audio.6288
+                0x0000000000011961        0x1 Output\obj\projects\standard\functions\func.o
+ .sdata.leaf_music_playing.6283
+                0x0000000000011962        0x1 Output\obj\projects\standard\functions\func.o
+ *fill*         0x0000000000011963        0x1 
  .sdata.max_scores_reg
-                0x000000000001195c        0x4 Output\obj\projects\standard\functions\func.o
-                0x000000000001195c                max_scores_reg
- .sdata.off_music_play.6228
-                0x0000000000011960        0x1 Output\obj\projects\standard\functions\func.o
- *fill*         0x0000000000011961        0x3 
- .sdata.real_time_scores_reg
                 0x0000000000011964        0x4 Output\obj\projects\standard\functions\func.o
-                0x0000000000011964                real_time_scores_reg
+                0x0000000000011964                max_scores_reg
+ .sdata.off_music_play.6253
+                0x0000000000011968        0x1 Output\obj\projects\standard\functions\func.o
+ *fill*         0x0000000000011969        0x3 
+ .sdata.real_time_scores_reg
+                0x000000000001196c        0x4 Output\obj\projects\standard\functions\func.o
+                0x000000000001196c                real_time_scores_reg
  .sdata.max_score_display_count_flag
-                0x0000000000011968        0x1 Output\obj\projects\standard\port\port_init.o
-                0x0000000000011968                max_score_display_count_flag
+                0x0000000000011970        0x1 Output\obj\projects\standard\port\port_init.o
+                0x0000000000011970                max_score_display_count_flag
                 0x0000000000011a00                . = ALIGN (0x200)
- *fill*         0x0000000000011969       0x97 
+ *fill*         0x0000000000011971       0x8f 
 
 .pdn_comm       0x0000000000011c00      0xa00 load address 0x0000000010001000
  *(.pdncom_text*)
@@ -2172,82 +2175,100 @@ LOAD Output\obj\projects\standard\s_start.o
                 0x000000001000682c       0x50 Output\obj\projects\standard\functions\func.o
                 0x000000001000682c                print_info
                 0x0000000010006860                func_process
- .text.gpio_init
-                0x000000001000687c      0x3aa Output\obj\projects\standard\functions\func.o
-                0x000000001000687c                gpio_init
  .text.num_to_digit
-                0x0000000010006c26       0x5c Output\obj\projects\standard\functions\func.o
-                0x0000000010006c26                num_to_digit
+                0x000000001000687c       0x5c Output\obj\projects\standard\functions\func.o
+                0x000000001000687c                num_to_digit
  .text.lamp_flickering_3
-                0x0000000010006c82       0x92 Output\obj\projects\standard\functions\func.o
-                0x0000000010006c82                lamp_flickering_3
+                0x00000000100068d8       0x20 Output\obj\projects\standard\functions\func.o
+                0x00000000100068d8                lamp_flickering_3
+ .text.lamp_flickering_start
+                0x00000000100068f8       0x28 Output\obj\projects\standard\functions\func.o
+                0x00000000100068f8                lamp_flickering_start
+ .text.lamp_flickering_stop
+                0x0000000010006920       0x26 Output\obj\projects\standard\functions\func.o
+                0x0000000010006920                lamp_flickering_stop
  .text.lamp_filckering
-                0x0000000010006d14       0x52 Output\obj\projects\standard\functions\func.o
-                0x0000000010006d14                lamp_filckering
+                0x0000000010006946       0x6e Output\obj\projects\standard\functions\func.o
+                0x0000000010006946                lamp_filckering
+ .text.seg_display_stop
+                0x00000000100069b4       0x38 Output\obj\projects\standard\functions\func.o
+                0x00000000100069b4                seg_display_stop
+ .text.clear_realtime_scores
+                0x00000000100069ec       0x18 Output\obj\projects\standard\functions\func.o
+                0x00000000100069ec                clear_realtime_scores
+ .text.clear_max_scores
+                0x0000000010006a04       0x18 Output\obj\projects\standard\functions\func.o
+                0x0000000010006a04                clear_max_scores
+ .text.seg_display_max_score
+                0x0000000010006a1c       0x46 Output\obj\projects\standard\functions\func.o
+                0x0000000010006a1c                seg_display_max_score
+ .text.gpio_init
+                0x0000000010006a62      0x368 Output\obj\projects\standard\functions\func.o
+                0x0000000010006a62                gpio_init
  .text.device_init
-                0x0000000010006d66       0x1c Output\obj\projects\standard\functions\func.o
-                0x0000000010006d66                device_init
+                0x0000000010006dca       0xaa Output\obj\projects\standard\functions\func.o
+                0x0000000010006dca                device_init
  .text.auto_shutdown_process
-                0x0000000010006d82       0x80 Output\obj\projects\standard\functions\func.o
-                0x0000000010006d82                auto_shutdown_process
+                0x0000000010006e74       0x92 Output\obj\projects\standard\functions\func.o
+                0x0000000010006e74                auto_shutdown_process
  .text.power_process
-                0x0000000010006e02       0xd2 Output\obj\projects\standard\functions\func.o
-                0x0000000010006e02                power_process
+                0x0000000010006f06       0xfc Output\obj\projects\standard\functions\func.o
+                0x0000000010006f06                power_process
  .text.clear_score_process
-                0x0000000010006ed4       0x68 Output\obj\projects\standard\functions\func.o
-                0x0000000010006ed4                clear_score_process
+                0x0000000010007002       0x40 Output\obj\projects\standard\functions\func.o
+                0x0000000010007002                clear_score_process
  .text.cycle_play
-                0x0000000010006f3c       0x22 Output\obj\projects\standard\functions\func.o
-                0x0000000010006f3c                cycle_play
+                0x0000000010007042       0x22 Output\obj\projects\standard\functions\func.o
+                0x0000000010007042                cycle_play
  .text.loop_bgm_process
-                0x0000000010006f5e       0x40 Output\obj\projects\standard\functions\func.o
-                0x0000000010006f5e                loop_bgm_process
+                0x0000000010007064       0x40 Output\obj\projects\standard\functions\func.o
+                0x0000000010007064                loop_bgm_process
  .text.show_high_score_process
-                0x0000000010006f9e       0x74 Output\obj\projects\standard\functions\func.o
-                0x0000000010006f9e                show_high_score_process
+                0x00000000100070a4       0x40 Output\obj\projects\standard\functions\func.o
+                0x00000000100070a4                show_high_score_process
  .text.clear_high_score_process
-                0x0000000010007012       0x78 Output\obj\projects\standard\functions\func.o
-                0x0000000010007012                clear_high_score_process
- *fill*         0x000000001000708a        0x2 
+                0x00000000100070e4       0x44 Output\obj\projects\standard\functions\func.o
+                0x00000000100070e4                clear_high_score_process
+ *fill*         0x0000000010007128        0x0 
  .text.leaf_play
-                0x000000001000708c       0x96 Output\obj\projects\standard\functions\func.o
-                0x000000001000708c                leaf_play
+                0x0000000010007128       0x96 Output\obj\projects\standard\functions\func.o
+                0x0000000010007128                leaf_play
  .text.leaf_process
-                0x0000000010007122       0xda Output\obj\projects\standard\functions\func.o
-                0x0000000010007122                leaf_process
+                0x00000000100071be      0x134 Output\obj\projects\standard\functions\func.o
+                0x00000000100071be                leaf_process
  .text.user_main
-                0x00000000100071fc       0x28 Output\obj\projects\standard\functions\func.o
-                0x00000000100071fc                user_main
+                0x00000000100072f2       0x28 Output\obj\projects\standard\functions\func.o
+                0x00000000100072f2                user_main
  .text.lowpwr_get_wakeup_source
-                0x0000000010007224       0x1e Output\obj\projects\standard\functions\func_lowpwr.o
-                0x0000000010007224                lowpwr_get_wakeup_source
+                0x000000001000731a       0x1e Output\obj\projects\standard\functions\func_lowpwr.o
+                0x000000001000731a                lowpwr_get_wakeup_source
  .text.pdn4_back_init
-                0x0000000010007242       0x7a Output\obj\projects\standard\functions\func_lowpwr.o
-                0x0000000010007242                pdn4_back_init
+                0x0000000010007338       0x7a Output\obj\projects\standard\functions\func_lowpwr.o
+                0x0000000010007338                pdn4_back_init
  .text.pwron_fall_set_do
-                0x00000000100072bc       0x84 Output\obj\projects\standard\functions\func_lowpwr.o
-                0x00000000100072bc                pwron_fall_set_do
+                0x00000000100073b2       0x84 Output\obj\projects\standard\functions\func_lowpwr.o
+                0x00000000100073b2                pwron_fall_set_do
  .text.pwron_rise_set_do
-                0x0000000010007340       0x84 Output\obj\projects\standard\functions\func_lowpwr.o
-                0x0000000010007340                pwron_rise_set_do
+                0x0000000010007436       0x84 Output\obj\projects\standard\functions\func_lowpwr.o
+                0x0000000010007436                pwron_rise_set_do
  .text.wku_io_fall_set_do
-                0x00000000100073c4      0x174 Output\obj\projects\standard\functions\func_lowpwr.o
-                0x00000000100073c4                wku_io_fall_set_do
+                0x00000000100074ba      0x174 Output\obj\projects\standard\functions\func_lowpwr.o
+                0x00000000100074ba                wku_io_fall_set_do
  .text.wku_io_rise_set_do
-                0x0000000010007538      0x174 Output\obj\projects\standard\functions\func_lowpwr.o
-                0x0000000010007538                wku_io_rise_set_do
+                0x000000001000762e      0x174 Output\obj\projects\standard\functions\func_lowpwr.o
+                0x000000001000762e                wku_io_rise_set_do
  .text.set_all_pin_off
-                0x00000000100076ac       0x1e Output\obj\projects\standard\functions\func_lowpwr.o
-                0x00000000100076ac                set_all_pin_off
+                0x00000000100077a2       0x1e Output\obj\projects\standard\functions\func_lowpwr.o
+                0x00000000100077a2                set_all_pin_off
  .text.lowpwr.pdn
-                0x00000000100076ca      0x184 Output\obj\projects\standard\functions\func_lowpwr.o
-                0x00000000100076ca                pdn4
+                0x00000000100077c0      0x184 Output\obj\projects\standard\functions\func_lowpwr.o
+                0x00000000100077c0                pdn4
  .text.lowpwr.pwroff
-                0x000000001000784e       0x7c Output\obj\projects\standard\functions\func_lowpwr.o
-                0x000000001000784e                pwroff_do
-                0x0000000010007850                sfunc_pwroff
-                0x00000000100078ac                func_pwroff
- *fill*         0x00000000100078ca      0x136 
+                0x0000000010007944       0x7a Output\obj\projects\standard\functions\func_lowpwr.o
+                0x0000000010007944                pwroff_do
+                0x0000000010007946                sfunc_pwroff
+                0x00000000100079a2                func_pwroff
+ *fill*         0x00000000100079be       0x42 
  .text.lowpwr.lowbat
                 0x0000000010007a00      0x5b0 Output\obj\projects\standard\functions\func_lowpwr.o
                 0x0000000010007a00                sfunc_lowbat_do
@@ -3160,9 +3181,11 @@ LOAD Output\obj\projects\standard\s_start.o
                 0x0000000010014bd0        0x0 Output\obj\platform\bsp\bsp_cm.o
  .rela.text.func
                 0x0000000010014bd0        0x0 Output\obj\platform\bsp\bsp_cm.o
- .rela.text.gpio_init
+ .rela.text.clear_realtime_scores
                 0x0000000010014bd0        0x0 Output\obj\platform\bsp\bsp_cm.o
- .rela.text.lamp_flickering_3
+ .rela.text.clear_max_scores
+                0x0000000010014bd0        0x0 Output\obj\platform\bsp\bsp_cm.o
+ .rela.text.seg_display_max_score
                 0x0000000010014bd0        0x0 Output\obj\platform\bsp\bsp_cm.o
  .rela.text.device_init
                 0x0000000010014bd0        0x0 Output\obj\platform\bsp\bsp_cm.o
@@ -3620,7 +3643,7 @@ LOAD Output\obj\projects\standard\s_start.o
                 0x0000000000010800                __irq_stack = .
                 0x0000000000000400                __irq_stack_size = (__irq_stack - __irq_stack_start)
 
-.bss            0x0000000000010800      0x358
+.bss            0x0000000000010800      0x360
                 0x0000000000010800                __bss_start = .
  *(COMMON)
  COMMON         0x0000000000010800        0xa Output\obj\platform\bsp\bsp_dac.o
@@ -3642,9 +3665,9 @@ LOAD Output\obj\projects\standard\s_start.o
                 0x000000000001085c                mav_init
                 0x0000000000010868                pitch_cb
  *(.sbss*)
- .sbss.fadeStepTime.6170
+ .sbss.fadeStepTime.6171
                 0x0000000000010888        0x4 Output\obj\platform\bsp\bsp_dac.o
- .sbss.vbat_bak.6160
+ .sbss.vbat_bak.6161
                 0x000000000001088c        0x2 Output\obj\platform\modules\key\key_scan.o
  *fill*         0x000000000001088e        0x2 
  .sbss.vio_fkick
@@ -3656,10 +3679,15 @@ LOAD Output\obj\projects\standard\s_start.o
  .sbss.filckering_flag
                 0x0000000000010895        0x1 Output\obj\projects\standard\functions\func.o
                 0x0000000000010895                filckering_flag
- *fill*         0x0000000000010896        0x2 
- .sbss.last_times
+ .sbss.filckering_times
+                0x0000000000010896        0x1 Output\obj\projects\standard\functions\func.o
+                0x0000000000010896                filckering_times
+ .sbss.key_scan_flag
+                0x0000000000010897        0x1 Output\obj\projects\standard\functions\func.o
+                0x0000000000010897                key_scan_flag
+ .sbss.leaf_last_times
                 0x0000000000010898        0x4 Output\obj\projects\standard\functions\func.o
-                0x0000000000010898                last_times
+                0x0000000000010898                leaf_last_times
  .sbss.max_scores
                 0x000000000001089c        0x2 Output\obj\projects\standard\functions\func.o
                 0x000000000001089c                max_scores
@@ -3672,119 +3700,122 @@ LOAD Output\obj\projects\standard\s_start.o
  .sbss.real_time_scores
                 0x00000000000108a0        0x2 Output\obj\projects\standard\functions\func.o
                 0x00000000000108a0                real_time_scores
- .sbss.reverse_count_flag.6217
-                0x00000000000108a2        0x1 Output\obj\projects\standard\functions\func.o
+ .sbss.reverse_count.6218
+                0x00000000000108a2        0x2 Output\obj\projects\standard\functions\func.o
  .sbss.seg_display_flag
-                0x00000000000108a3        0x1 Output\obj\projects\standard\functions\func.o
-                0x00000000000108a3                seg_display_flag
- .sbss.ticks.6128
-                0x00000000000108a4        0x4 Output\obj\projects\standard\functions\func.o
+                0x00000000000108a4        0x1 Output\obj\projects\standard\functions\func.o
+                0x00000000000108a4                seg_display_flag
+ *fill*         0x00000000000108a5        0x3 
+ .sbss.ticks.6129
+                0x00000000000108a8        0x4 Output\obj\projects\standard\functions\func.o
+ .sbss.wakeup_flag.6254
+                0x00000000000108ac        0x1 Output\obj\projects\standard\functions\func.o
  .sbss.dac_classd_mode
-                0x00000000000108a8        0x1 Output\obj\projects\standard\plugin\plugin.o
-                0x00000000000108a8                dac_classd_mode
- .sbss.dac_drc_en
-                0x00000000000108a9        0x1 Output\obj\projects\standard\plugin\plugin.o
-                0x00000000000108a9                dac_drc_en
- .sbss.dac_soft_eq_en
-                0x00000000000108aa        0x1 Output\obj\projects\standard\plugin\plugin.o
-                0x00000000000108aa                dac_soft_eq_en
- .sbss.dac_soft_gain
-                0x00000000000108ab        0x1 Output\obj\projects\standard\plugin\plugin.o
-                0x00000000000108ab                dac_soft_gain
- .sbss.lvd_irq_en
-                0x00000000000108ac        0x1 Output\obj\projects\standard\plugin\plugin.o
-                0x00000000000108ac                lvd_irq_en
- .sbss.music_mp3_long_buffer
                 0x00000000000108ad        0x1 Output\obj\projects\standard\plugin\plugin.o
-                0x00000000000108ad                music_mp3_long_buffer
- *fill*         0x00000000000108ae        0x2 
+                0x00000000000108ad                dac_classd_mode
+ .sbss.dac_drc_en
+                0x00000000000108ae        0x1 Output\obj\projects\standard\plugin\plugin.o
+                0x00000000000108ae                dac_drc_en
+ .sbss.dac_soft_eq_en
+                0x00000000000108af        0x1 Output\obj\projects\standard\plugin\plugin.o
+                0x00000000000108af                dac_soft_eq_en
+ .sbss.dac_soft_gain
+                0x00000000000108b0        0x1 Output\obj\projects\standard\plugin\plugin.o
+                0x00000000000108b0                dac_soft_gain
+ .sbss.lvd_irq_en
+                0x00000000000108b1        0x1 Output\obj\projects\standard\plugin\plugin.o
+                0x00000000000108b1                lvd_irq_en
+ .sbss.music_mp3_long_buffer
+                0x00000000000108b2        0x1 Output\obj\projects\standard\plugin\plugin.o
+                0x00000000000108b2                music_mp3_long_buffer
+ *fill*         0x00000000000108b3        0x1 
  .sbss.current_key_state
-                0x00000000000108b0        0x6 Output\obj\projects\standard\port\port_init.o
-                0x00000000000108b0                current_key_state
- *fill*         0x00000000000108b6        0x2 
+                0x00000000000108b4        0x6 Output\obj\projects\standard\port\port_init.o
+                0x00000000000108b4                current_key_state
+ *fill*         0x00000000000108ba        0x2 
  .sbss.display_register
-                0x00000000000108b8        0x4 Output\obj\projects\standard\port\port_init.o
-                0x00000000000108b8                display_register
+                0x00000000000108bc        0x4 Output\obj\projects\standard\port\port_init.o
+                0x00000000000108bc                display_register
  .sbss.gnd_count_flag
-                0x00000000000108bc        0x1 Output\obj\projects\standard\port\port_init.o
-                0x00000000000108bc                gnd_count_flag
- *fill*         0x00000000000108bd        0x3 
+                0x00000000000108c0        0x1 Output\obj\projects\standard\port\port_init.o
+                0x00000000000108c0                gnd_count_flag
+ *fill*         0x00000000000108c1        0x3 
  .sbss.key_processed
-                0x00000000000108c0        0x6 Output\obj\projects\standard\port\port_init.o
-                0x00000000000108c0                key_processed
+                0x00000000000108c4        0x6 Output\obj\projects\standard\port\port_init.o
+                0x00000000000108c4                key_processed
  .sbss.key_return
-                0x00000000000108c6        0x2 Output\obj\projects\standard\port\port_init.o
-                0x00000000000108c6                key_return
+                0x00000000000108ca        0x2 Output\obj\projects\standard\port\port_init.o
+                0x00000000000108ca                key_return
  .sbss.last_key_state
-                0x00000000000108c8        0x6 Output\obj\projects\standard\port\port_init.o
-                0x00000000000108c8                last_key_state
+                0x00000000000108cc        0x6 Output\obj\projects\standard\port\port_init.o
+                0x00000000000108cc                last_key_state
  .sbss.max_score_display_count_interval
-                0x00000000000108ce        0x2 Output\obj\projects\standard\port\port_init.o
-                0x00000000000108ce                max_score_display_count_interval
- .sbss.dac_cb   0x00000000000108d0        0x8 ..\..\platform\libs\libplatform.a(dac.o)
-                0x00000000000108d0                dac_cb
+                0x00000000000108d2        0x2 Output\obj\projects\standard\port\port_init.o
+                0x00000000000108d2                max_score_display_count_interval
+ .sbss.dac_cb   0x00000000000108d4        0x8 ..\..\platform\libs\libplatform.a(dac.o)
+                0x00000000000108d4                dac_cb
  .sbss.mp3_loop_end
-                0x00000000000108d8        0x2 ..\..\platform\libs\libplatform.a(music_res.o)
-                0x00000000000108d8                mp3_loop_end
+                0x00000000000108dc        0x2 ..\..\platform\libs\libplatform.a(music_res.o)
+                0x00000000000108dc                mp3_loop_end
  .sbss.mp3_loop_start
-                0x00000000000108da        0x2 ..\..\platform\libs\libplatform.a(music_res.o)
-                0x00000000000108da                mp3_loop_start
+                0x00000000000108de        0x2 ..\..\platform\libs\libplatform.a(music_res.o)
+                0x00000000000108de                mp3_loop_start
  .sbss.spiflash_ex_read
-                0x00000000000108dc        0x4 ..\..\platform\libs\libplatform.a(music_res.o)
-                0x00000000000108dc                spiflash_ex_read
- .sbss.spiflash_ex_wav_read
                 0x00000000000108e0        0x4 ..\..\platform\libs\libplatform.a(music_res.o)
-                0x00000000000108e0                spiflash_ex_wav_read
+                0x00000000000108e0                spiflash_ex_read
+ .sbss.spiflash_ex_wav_read
+                0x00000000000108e4        0x4 ..\..\platform\libs\libplatform.a(music_res.o)
+                0x00000000000108e4                spiflash_ex_wav_read
  .sbss.key_cnt_ex
-                0x00000000000108e4        0x2 ..\..\platform\libs\libplatform.a(key.o)
+                0x00000000000108e8        0x2 ..\..\platform\libs\libplatform.a(key.o)
  .sbss.key_up_ex
-                0x00000000000108e6        0x2 ..\..\platform\libs\libplatform.a(key.o)
+                0x00000000000108ea        0x2 ..\..\platform\libs\libplatform.a(key.o)
  .sbss.vddio_cur_sel
-                0x00000000000108e8        0x1 ..\..\platform\libs\libplatform.a(pmu.o)
-                0x00000000000108e8                vddio_cur_sel
- *fill*         0x00000000000108e9        0x3 
- .sbss.ms_tick  0x00000000000108ec        0x4 ..\..\platform\libs\libplatform.a(interrupt.o)
-                0x00000000000108ec                ms_tick
+                0x00000000000108ec        0x1 ..\..\platform\libs\libplatform.a(pmu.o)
+                0x00000000000108ec                vddio_cur_sel
+ *fill*         0x00000000000108ed        0x3 
+ .sbss.ms_tick  0x00000000000108f0        0x4 ..\..\platform\libs\libplatform.a(interrupt.o)
+                0x00000000000108f0                ms_tick
  .sbss.sys_trim
-                0x00000000000108f0        0x8 ..\..\platform\libs\libplatform.a(voltage_trim.o)
-                0x00000000000108f0                sys_trim
- .sbss          0x00000000000108f8        0x4 ..\..\platform\libs\libcodecs.a(esbc.o)
-                0x00000000000108f8                esbc_fread
- .sbss          0x00000000000108fc        0x4 ..\..\platform\libs\libcodecs.a(lsbc.o)
-                0x00000000000108fc                lsbcstart
-                0x00000000000108fd                lsbcend
-                0x00000000000108fe                lastflag
- .sbss          0x0000000000010900        0xe ..\..\platform\libs\libcodecs.a(wavdec.o)
-                0x0000000000010904                wav_mix
-                0x000000000001090c                last_val
- *fill*         0x000000000001090e        0x2 
- .sbss          0x0000000000010910        0x8 ..\..\platform\libs\libcodecs.a(voice_changer_fixed.o)
-                0x0000000000010910                sum_pitch
+                0x00000000000108f4        0x8 ..\..\platform\libs\libplatform.a(voltage_trim.o)
+                0x00000000000108f4                sys_trim
+ .sbss          0x00000000000108fc        0x4 ..\..\platform\libs\libcodecs.a(esbc.o)
+                0x00000000000108fc                esbc_fread
+ .sbss          0x0000000000010900        0x4 ..\..\platform\libs\libcodecs.a(lsbc.o)
+                0x0000000000010900                lsbcstart
+                0x0000000000010901                lsbcend
+                0x0000000000010902                lastflag
+ .sbss          0x0000000000010904        0xe ..\..\platform\libs\libcodecs.a(wavdec.o)
+                0x0000000000010908                wav_mix
+                0x0000000000010910                last_val
+ *fill*         0x0000000000010912        0x6 
+ .sbss          0x0000000000010918        0x8 ..\..\platform\libs\libcodecs.a(voice_changer_fixed.o)
+                0x0000000000010918                sum_pitch
  *(.buf*)
- .buf.key.cb    0x0000000000010918       0x14 Output\obj\platform\modules\key\key_scan.o
-                0x0000000000010918                adc_cb
- .buf.func_cb   0x000000000001092c        0xc Output\obj\projects\standard\functions\func.o
-                0x000000000001092c                func_cb
+ .buf.key.cb    0x0000000000010920       0x14 Output\obj\platform\modules\key\key_scan.o
+                0x0000000000010920                adc_cb
+ .buf.func_cb   0x0000000000010934        0xc Output\obj\projects\standard\functions\func.o
+                0x0000000000010934                func_cb
  .buf.bsp.sys_cb
-                0x0000000000010938       0x2c Output\obj\projects\standard\port\port_init.o
-                0x0000000000010938                sys_cb
- .buf.key       0x0000000000010964       0x2e Output\obj\projects\standard\port\port_key.o
-                0x0000000000010964                iokey_gpio
-                0x000000000001098c                iokey_num
- *fill*         0x0000000000010992        0x2 
- .buf.spires    0x0000000000010994       0x24 ..\..\platform\libs\libplatform.a(music_res.o)
-                0x0000000000010994                spires_cb
- .buf.wavres1   0x00000000000109b8       0x24 ..\..\platform\libs\libplatform.a(music_res.o)
-                0x00000000000109b8                wavres_cb_1
- .buf.key.cb    0x00000000000109dc       0x20 ..\..\platform\libs\libplatform.a(key.o)
- .buf.deccom    0x00000000000109fc       0x28 ..\..\platform\libs\libcodecs.a(codecs_com.o)
-                0x00000000000109fc                codec_info
-                0x0000000000010a00                qskip
+                0x0000000000010940       0x2c Output\obj\projects\standard\port\port_init.o
+                0x0000000000010940                sys_cb
+ .buf.key       0x000000000001096c       0x2e Output\obj\projects\standard\port\port_key.o
+                0x000000000001096c                iokey_gpio
+                0x0000000000010994                iokey_num
+ *fill*         0x000000000001099a        0x2 
+ .buf.spires    0x000000000001099c       0x24 ..\..\platform\libs\libplatform.a(music_res.o)
+                0x000000000001099c                spires_cb
+ .buf.wavres1   0x00000000000109c0       0x24 ..\..\platform\libs\libplatform.a(music_res.o)
+                0x00000000000109c0                wavres_cb_1
+ .buf.key.cb    0x00000000000109e4       0x20 ..\..\platform\libs\libplatform.a(key.o)
+ .buf.deccom    0x0000000000010a04       0x28 ..\..\platform\libs\libcodecs.a(codecs_com.o)
+                0x0000000000010a04                codec_info
+                0x0000000000010a08                qskip
  *(.huart_buf)
  *(.cm_buf)
- .cm_buf        0x0000000000010a24      0x134 ..\..\platform\libs\libplatform.a(cm.o)
-                0x0000000000010b58                __bss_end = .
-                0x0000000000000358                __bss_size = (__bss_end - __bss_start)
+ .cm_buf        0x0000000000010a2c      0x134 ..\..\platform\libs\libplatform.a(cm.o)
+                0x0000000000010b60                __bss_end = .
+                0x0000000000000360                __bss_size = (__bss_end - __bss_start)
 
 .bss1           0x0000000000070000      0xa70
                 0x0000000000070000                __bss1_start = .

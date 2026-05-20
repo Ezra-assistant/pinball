@@ -1218,7 +1218,7 @@
 
 1779071659 d:\desktop\练习1(制作)\代码\pinball\app\platform\libs\api_lfs.h
 
-1779178367 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func.h
+1779241598 d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\functions\func.h
 	"func_idle.h"
 	"func_music.h"
 	"func_lowpwr.h"
@@ -1620,7 +1620,7 @@
 1779071660 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\plugin\plugin.c
 	"include.h"
 
-1779182502 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\port\port_init.c
+1779241699 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\port\port_init.c
 	"include.h"
 
 1779071660 source:d:\desktop\练习1(制作)\代码\pinball\app\projects\standard\port\port_ir.c

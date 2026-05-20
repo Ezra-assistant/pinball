@@ -2,14 +2,9 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="functions\func.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="functions\func.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="13806" topLine="554" />
-		</Cursor>
-	</File>
-	<File name="..\..\platform\header\config_define.h" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="11329" topLine="199" />
+			<Cursor1 position="23120" topLine="883" />
 		</Cursor>
 	</File>
 	<File name="port\port_init.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -17,9 +12,19 @@
 			<Cursor1 position="3136" topLine="100" />
 		</Cursor>
 	</File>
-	<File name="functions\func_lowpwr.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+	<File name="..\..\platform\header\config_define.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="69400" topLine="2247" />
+			<Cursor1 position="11329" topLine="199" />
+		</Cursor>
+	</File>
+	<File name="functions\func_lowpwr.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="69413" topLine="2252" />
+		</Cursor>
+	</File>
+	<File name="config.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="2036" topLine="31" />
 		</Cursor>
 	</File>
 	<File name="..\..\platform\modules\spiflash\spiflash1.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -27,9 +32,9 @@
 			<Cursor1 position="13643" topLine="528" />
 		</Cursor>
 	</File>
-	<File name="config.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="..\..\platform\bsp\bsp_music.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="2044" topLine="6" />
+			<Cursor1 position="6039" topLine="132" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
